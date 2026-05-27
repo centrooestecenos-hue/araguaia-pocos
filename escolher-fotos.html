@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Escolher Fotos da Araguaia | Galeria de Seleção</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#0a0a0a;color:#fff;padding:24px;min-height:100vh}
+h1{font-size:28px;margin-bottom:8px}
+.sub{color:#a3a3a3;margin-bottom:32px;font-size:15px}
+.grupo{margin-bottom:50px;border-top:2px solid #262626;padding-top:30px}
+.grupo-titulo{font-size:18px;color:#7dd3fc;margin-bottom:14px;font-weight:700}
+.grade{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.foto{
+  position:relative;background:#171717;border-radius:12px;overflow:hidden;
+  cursor:pointer;border:3px solid transparent;transition:all .2s;
+}
+.foto:hover{border-color:#2563eb;transform:translateY(-4px)}
+.foto.sel{border-color:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.3)}
+.foto img{width:100%;height:200px;object-fit:cover;display:block}
+.foto .num{
+  position:absolute;top:8px;left:8px;
+  background:rgba(0,0,0,.85);color:#fff;
+  padding:5px 11px;border-radius:6px;
+  font-size:13px;font-weight:700;letter-spacing:.3px;
+}
+.foto .check{
+  position:absolute;top:8px;right:8px;
+  width:32px;height:32px;border-radius:50%;
+  background:#16a34a;color:#fff;
+  display:none;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;
+}
+.foto.sel .check{display:flex}
+.painel{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#171717;border-top:1px solid #262626;
+  padding:18px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:100;
+}
+.painel .info{font-size:14px;color:#d4d4d4}
+.painel strong{color:#16a34a;font-size:20px}
+.painel button{
+  background:#2563eb;color:#fff;border:none;
+  padding:14px 28px;border-radius:10px;
+  font-size:15px;font-weight:700;cursor:pointer;
+}
+.painel button:hover{background:#1d4ed8}
+.copiado{color:#16a34a;font-weight:700;display:none;margin-left:14px}
+.copiado.show{display:inline}
+.intro{background:#1e3a8a;color:#fff;padding:18px 24px;border-radius:12px;margin-bottom:24px;font-size:14px;line-height:1.6}
+.intro b{color:#7dd3fc}
+@media(max-width:880px){.grade{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<h1>🎯 Galeria de seleção — Araguaia Poços</h1>
+<p class="sub">55 frames extraídos dos 11 vídeos. Clique nas fotos que ficaram BOAS pra você usar na landing.</p>
+
+<div class="intro">
+  <b>Como usar:</b><br>
+  1. Clique nas fotos boas (vai marcar com ✓ verde)<br>
+  2. Quando terminar, clica em <b>"COPIAR SELEÇÃO"</b> no rodapé<br>
+  3. Volta pro chat do Claude e cola (Ctrl+V)<br>
+  4. Eu aplico SÓ as fotos que você escolheu na landing
+</div>
+
+<div id="conteudo"></div>
+
+<div class="painel">
+  <div class="info">Selecionadas: <strong id="contador">0</strong> fotos</div>
+  <div>
+    <span class="copiado" id="copiado">✓ COPIADO! Cola no chat agora</span>
+    <button onclick="copiar()">📋 COPIAR SELEÇÃO</button>
+  </div>
+</div>
+
+<script>
+const conteudo = document.getElementById('conteudo');
+const selecionadas = new Set();
+
+// Gerar 11 vídeos x 5 frames cada
+for (let v = 1; v <= 11; v++) {
+  const grupo = document.createElement('div');
+  grupo.className = 'grupo';
+  grupo.innerHTML = `<div class="grupo-titulo">📹 Vídeo ${v}</div><div class="grade" id="g${v}"></div>`;
+  conteudo.appendChild(grupo);
+  const grade = grupo.querySelector('.grade');
+  for (let f = 1; f <= 5; f++) {
+    const id = `v${v}-f${f}`;
+    const div = document.createElement('div');
+    div.className = 'foto';
+    div.dataset.id = id;
+    div.innerHTML = `
+      <span class="num">V${v}.${f}</span>
+      <span class="check">✓</span>
+      <img src="imgs-todas/${id}.jpg" alt="V${v}F${f}" loading="lazy">
+    `;
+    div.onclick = () => {
+      div.classList.toggle('sel');
+      if (div.classList.contains('sel')) selecionadas.add(id);
+      else selecionadas.delete(id);
+      document.getElementById('contador').textContent = selecionadas.size;
+    };
+    grade.appendChild(div);
+  }
+}
+
+function copiar() {
+  if (selecionadas.size === 0) { alert('Selecione ao menos uma foto!'); return; }
+  const lista = Array.from(selecionadas).sort().join('\n');
+  const texto = `📸 Fotos escolhidas para a landing (${selecionadas.size} fotos):\n\n${lista}\n\n— Aplica essas na landing.`;
+  navigator.clipboard.writeText(texto).then(() => {
+    const c = document.getElementById('copiado');
+    c.classList.add('show');
+    setTimeout(() => c.classList.remove('show'), 4000);
+  });
+}
+</script>
+</body>
+</html>

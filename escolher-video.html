@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escolher Vídeo do Hero — Araguaia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#0a0a0a;color:#fff;padding:24px;min-height:100vh}
+h1{font-size:28px;margin-bottom:8px}
+.sub{color:#a3a3a3;margin-bottom:24px;font-size:15px}
+.intro{background:#1e3a8a;color:#fff;padding:18px 24px;border-radius:12px;margin-bottom:24px;font-size:14px;line-height:1.65}
+.intro b{color:#7dd3fc}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:#171717;border-radius:14px;overflow:hidden;
+  border:3px solid transparent;transition:all .25s;cursor:pointer;
+  position:relative;
+}
+.card:hover{border-color:#2563eb;transform:translateY(-4px)}
+.card.sel{border-color:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.3)}
+.card video{width:100%;height:280px;object-fit:cover;display:block;background:#000}
+.card .info{padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.card .nome{font-weight:700;font-size:15px}
+.card .duracao{color:#a3a3a3;font-size:13px}
+.card .check{
+  position:absolute;top:10px;right:10px;
+  width:32px;height:32px;border-radius:50%;
+  background:#16a34a;color:#fff;
+  display:none;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;z-index:5;
+}
+.card.sel .check{display:flex}
+.painel{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#171717;border-top:1px solid #262626;
+  padding:18px 24px;display:flex;justify-content:space-between;align-items:center;z-index:100;
+}
+.painel .info{font-size:14px;color:#d4d4d4}
+.painel strong{color:#16a34a;font-size:20px}
+.painel button{
+  background:#2563eb;color:#fff;border:none;
+  padding:14px 28px;border-radius:10px;
+  font-size:15px;font-weight:700;cursor:pointer;
+}
+.painel button:hover{background:#1d4ed8}
+.copiado{color:#16a34a;font-weight:700;display:none;margin-left:14px}
+.copiado.show{display:inline}
+@media (max-width:880px){.grade{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>🎬 Escolher vídeo do hero — Araguaia</h1>
+<p class="sub">Os 11 vídeos disponíveis. Clica no que quer usar no fundo do hero.</p>
+
+<div class="intro">
+  <b>Como funciona:</b><br>
+  1. Passa o mouse no vídeo pra ver prévia (ou clica pra dar play)<br>
+  2. Clica no quadro pra <b>SELECIONAR</b> (vai marcar com ✓ verde)<br>
+  3. Só pode escolher 1 (o que está no hero)<br>
+  4. Clica em <b>"USAR ESSE VÍDEO"</b> no rodapé<br>
+  5. Cola no chat — eu aplico na landing
+</div>
+
+<div class="grade" id="grade"></div>
+
+<div class="painel">
+  <div class="info">Selecionado: <strong id="escolha">nenhum</strong></div>
+  <div>
+    <span class="copiado" id="copiado">✓ COPIADO! Cola no chat agora</span>
+    <button onclick="copiar()">📋 USAR ESSE VÍDEO</button>
+  </div>
+</div>
+
+<script>
+const videos = [
+  {n:1, dur:'17s', desc:'Tubo azul com água'},
+  {n:2, dur:'42s', desc:'Perfuratriz vermelha em campo'},
+  {n:3, dur:'58s', desc:'Operação com poeira (longo)'},
+  {n:4, dur:'7s', desc:'Detalhe rápido'},
+  {n:5, dur:'28s', desc:'Água caindo no tanque azul'},
+  {n:6, dur:'17s', desc:'Caminhão amarelo compressor'},
+  {n:7, dur:'13s', desc:'Caminhão Araguaia close'},
+  {n:8, dur:'33s', desc:'Perfuratriz em fazenda'},
+  {n:9, dur:'9s', desc:'Água saindo + caminhão'},
+  {n:10, dur:'5s', desc:'Estandartes da marca'},
+  {n:11, dur:'11s', desc:'Caminhão Atlas Copco'}
+];
+
+let selecionado = null;
+const grade = document.getElementById('grade');
+
+videos.forEach(v => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.n = v.n;
+  card.innerHTML = `
+    <span class="check">✓</span>
+    <video src="videos-todos/video-${v.n}.mp4" muted preload="metadata" controls></video>
+    <div class="info">
+      <span class="nome">Vídeo ${v.n}: ${v.desc}</span>
+      <span class="duracao">${v.dur}</span>
+    </div>
+  `;
+  card.onclick = (e) => {
+    if (e.target.tagName === 'VIDEO') return;
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('sel'));
+    card.classList.add('sel');
+    selecionado = v.n;
+    document.getElementById('escolha').textContent = `Vídeo ${v.n} (${v.desc})`;
+  };
+  grade.appendChild(card);
+});
+
+function copiar() {
+  if (!selecionado) { alert('Selecione um vídeo!'); return; }
+  const v = videos.find(x => x.n === selecionado);
+  const texto = `🎬 Vídeo escolhido pro hero: Vídeo ${v.n} (${v.desc}, ${v.dur})\n\nUsa esse no hero da landing.`;
+  navigator.clipboard.writeText(texto).then(() => {
+    const c = document.getElementById('copiado');
+    c.classList.add('show');
+    setTimeout(() => c.classList.remove('show'), 4000);
+  });
+}
+</script>
+</body>
+</html>

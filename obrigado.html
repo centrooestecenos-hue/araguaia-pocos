@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Obrigado! | Araguaia Poços Artesianos</title>
+<meta name="robots" content="noindex, nofollow" />
+
+<!-- Pixel Meta + GA com conversão -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'PIXEL_ID');
+fbq('track', 'PageView');
+fbq('track', 'Lead');           // <-- Evento de conversão (importante)
+fbq('track', 'CompleteRegistration');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GA_ID');
+gtag('event', 'generate_lead', {value: 1, currency: 'BRL'});
+// Conversão Google Ads (substituir AW-ID/conv_label)
+gtag('event', 'conversion', {'send_to': 'AW-ADS_ID/CONV_LABEL'});
+</script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',Roboto,Arial,sans-serif;
+    background:linear-gradient(135deg,#0e7c36 0%,#16a34a 100%);
+    color:#fff;min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+  }
+  .box{
+    max-width:540px;background:#fff;color:#0f172a;
+    padding:40px 30px;border-radius:18px;text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+  }
+  .check{
+    width:80px;height:80px;border-radius:50%;
+    background:#16a34a;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:42px;margin:0 auto 20px;
+    box-shadow:0 8px 20px rgba(22,163,74,.4);
+  }
+  h1{font-size:28px;color:#06304f;margin-bottom:10px}
+  p{color:#475569;margin-bottom:16px;line-height:1.5}
+  .info-box{
+    background:#f0f9ff;border:1.5px solid #1e7bbd33;
+    padding:18px;border-radius:12px;text-align:left;
+    margin:20px 0;
+  }
+  .info-box strong{color:#06304f}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:#25d366;color:#fff;
+    padding:16px 28px;border-radius:50px;
+    font-weight:700;font-size:16px;text-decoration:none;
+    margin-top:14px;
+    box-shadow:0 8px 20px rgba(37,211,102,.4);
+  }
+  .footer-msg{
+    margin-top:24px;font-size:13px;color:#475569;
+  }
+  .footer-msg a{color:#1e7bbd;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="check">✓</div>
+  <h1>Recebemos seu pedido!</h1>
+  <p>Em até <strong>2 horas úteis</strong> nossa equipe vai te chamar no WhatsApp informado com o orçamento personalizado.</p>
+
+  <div class="info-box">
+    <strong>📲 Não recebeu nosso contato?</strong><br>
+    Você pode falar conosco AGORA pelo WhatsApp — atendimento imediato no horário comercial.
+  </div>
+
+  <a href="https://wa.me/5564999606284?text=Ol%C3%A1%21%20Acabei%20de%20enviar%20o%20formul%C3%A1rio%20no%20site%20da%20Araguaia%20Po%C3%A7os." class="btn" target="_blank">
+    📱 Falar agora no WhatsApp
+  </a>
+
+  <div class="footer-msg">
+    Enquanto isso, acompanhe nossas obras em<br>
+    <a href="https://www.instagram.com/araguaia_pocos_artesianos" target="_blank">@araguaia_pocos_artesianos</a>
+  </div>
+</div>
+
+<script>
+// Auto-redirect pro WhatsApp em 8 segundos (caso o usuário não clique)
+setTimeout(function(){
+  if(document.visibilityState === 'visible'){
+    // Não força — apenas mostra hint
+    document.querySelector('.btn').style.animation = 'pulse 1s infinite';
+  }
+}, 5000);
+</script>
+</body>
+</html>
