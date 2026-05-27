@@ -80,6 +80,10 @@ p{color:var(--texto-2);font-size:16px}
 .logo-txt{display:flex;flex-direction:column;line-height:1}
 .logo-txt b{font-size:18px;color:var(--azul-dark);letter-spacing:-.03em;font-weight:800}
 .logo-txt small{font-size:11px;color:var(--texto-3);font-weight:500;letter-spacing:.5px;margin-top:3px;text-transform:uppercase}
+.logo-new{transition:all .25s}
+.logo-new img{height:72px;width:auto;transition:height .25s ease}
+.hdr.scrolled .logo-new img{height:52px}
+@media(max-width:768px){.logo-new img{height:56px}.hdr.scrolled .logo-new img{height:44px}}
 .nav-links{display:flex;gap:4px;align-items:center}
 .nav-links a{padding:8px 14px;font-size:14px;font-weight:600;color:var(--texto-2);border-radius:8px;transition:all .15s}
 .nav-links a:hover{background:var(--azul-light);color:var(--azul-primary)}
