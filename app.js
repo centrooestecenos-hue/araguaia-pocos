@@ -150,6 +150,26 @@ function enviarLead(e) {
 }
 window.enviarLead = enviarLead;
 
+// === Toggle som do vídeo do hero ===
+function toggleSound(btn) {
+  const v = document.getElementById('heroVideo');
+  const icon = document.getElementById('soundIcon');
+  if (!v) return;
+  v.muted = !v.muted;
+  const ICON_MUTED = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+  const ICON_ON    = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+  if (icon) icon.innerHTML = v.muted ? ICON_MUTED : ICON_ON;
+  if (btn) {
+    btn.setAttribute('aria-label', v.muted ? 'Ativar som' : 'Mutar som');
+    btn.setAttribute('title', v.muted ? 'Ativar som' : 'Mutar som');
+  }
+  if (!v.muted) {
+    v.play().catch(() => {});
+  }
+  if (typeof trackClick === 'function') trackClick(v.muted ? 'video_mute' : 'video_unmute');
+}
+window.toggleSound = toggleSound;
+
 function redir(d) {
   const msg = encodeURIComponent(
     'Olá! Sou ' + d.nome + ', de ' + d.cidade + '.\n' +

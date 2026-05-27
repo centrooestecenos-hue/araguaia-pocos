@@ -98,10 +98,9 @@ gtag('js', new Date()); gtag('config', 'GA_ID'); gtag('config', 'AW-ADS_ID');
         <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="imgs/dona-nayara.jpg" style="width:100%;height:100%;object-fit:cover;display:block;background:#000">
           <source src="video-dona.mp4" type="video/mp4">
         </video>
-        <div style="position:absolute;left:18px;right:18px;bottom:18px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.78));padding:34px 18px 16px;border-radius:14px;color:#fff;pointer-events:none">
-          <div style="font-weight:800;font-size:1.05rem;line-height:1.2">Nayara — co-fundadora</div>
-          <div style="opacity:.85;font-size:.88rem;margin-top:4px">Liderança técnica e operacional · Iporá-GO</div>
-        </div>
+        <button id="soundToggle" type="button" onclick="toggleSound(this)" aria-label="Ativar som" title="Ativar som" style="position:absolute;bottom:18px;right:18px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.45);transition:transform .15s ease,background .2s ease;z-index:5">
+          <svg id="soundIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
       </div>
     </div>
   </div>
