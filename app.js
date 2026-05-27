@@ -170,6 +170,52 @@ function toggleSound(btn) {
 }
 window.toggleSound = toggleSound;
 
+// === Play/Pause do vídeo do hero ===
+function togglePlayPause() {
+  const v = document.getElementById('heroVideo');
+  const btn = document.getElementById('playPauseBtn');
+  const icon = document.getElementById('playPauseIcon');
+  if (!v) return;
+  const ICON_PLAY  = '<polygon points="6 4 20 12 6 20 6 4"/>';
+  const ICON_PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  if (v.paused) {
+    v.play().catch(()=>{});
+    if (icon) icon.innerHTML = ICON_PAUSE;
+    if (btn) {
+      btn.setAttribute('aria-label', 'Pausar vídeo');
+      btn.setAttribute('title', 'Pausar vídeo');
+      btn.classList.remove('is-paused');
+    }
+    if (typeof trackClick === 'function') trackClick('video_play');
+  } else {
+    v.pause();
+    if (icon) icon.innerHTML = ICON_PLAY;
+    if (btn) {
+      btn.setAttribute('aria-label', 'Tocar vídeo');
+      btn.setAttribute('title', 'Tocar vídeo');
+      btn.classList.add('is-paused');
+    }
+    if (typeof trackClick === 'function') trackClick('video_pause');
+  }
+}
+window.togglePlayPause = togglePlayPause;
+
+// === Vídeo terminou — mostra botão de play pra rever ===
+function onVideoEnded() {
+  const btn = document.getElementById('playPauseBtn');
+  const icon = document.getElementById('playPauseIcon');
+  if (icon) icon.innerHTML = '<polygon points="6 4 20 12 6 20 6 4"/>';
+  if (btn) {
+    btn.setAttribute('aria-label', 'Assistir novamente');
+    btn.setAttribute('title', 'Assistir novamente');
+    btn.classList.add('is-paused');
+  }
+  // Quando o usuário clicar pra rever, volta pro início
+  const v = document.getElementById('heroVideo');
+  if (v) v.currentTime = 0;
+}
+window.onVideoEnded = onVideoEnded;
+
 function redir(d) {
   const msg = encodeURIComponent(
     'Olá! Sou ' + d.nome + ', de ' + d.cidade + '.\n' +

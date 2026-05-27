@@ -93,11 +93,14 @@ gtag('js', new Date()); gtag('config', 'GA_ID'); gtag('config', 'AW-ADS_ID');
           </div>
         </div>
       </div>
-      <div style="position:relative;aspect-ratio:9/16;max-height:640px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);border:3px solid rgba(255,255,255,.15);background:#001f47">
-        <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="imgs/dona-nayara.jpg" style="width:100%;height:100%;object-fit:cover;display:block;background:#000">
+      <div class="hero-video-wrap" style="position:relative;aspect-ratio:9/16;max-height:640px;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);border:3px solid rgba(255,255,255,.15);background:#001f47">
+        <video id="heroVideo" autoplay muted playsinline webkit-playsinline preload="auto" poster="imgs/dona-nayara.jpg" style="width:100%;height:100%;object-fit:cover;display:block;background:#000;cursor:pointer" onclick="togglePlayPause()" onended="onVideoEnded()">
           <source src="video-dona.mp4" type="video/mp4">
         </video>
-        <button id="soundToggle" type="button" onclick="toggleSound(this)" aria-label="Ativar som" title="Ativar som" style="position:absolute;bottom:18px;right:18px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.45);transition:transform .15s ease,background .2s ease;z-index:5">
+        <button id="playPauseBtn" type="button" onclick="togglePlayPause()" aria-label="Pausar vídeo" title="Pausar vídeo" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(0,0,0,.5);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .25s ease,transform .15s ease;z-index:4;pointer-events:none">
+          <svg id="playPauseIcon" width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
+        <button id="soundToggle" type="button" onclick="event.stopPropagation();toggleSound(this)" aria-label="Ativar som" title="Ativar som" style="position:absolute;bottom:18px;right:18px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.45);transition:transform .15s ease,background .2s ease;z-index:5">
           <svg id="soundIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
         </button>
       </div>
@@ -344,8 +347,8 @@ gtag('js', new Date()); gtag('config', 'GA_ID'); gtag('config', 'AW-ADS_ID');
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-col">
-        <div class="foot-brand" style="margin-bottom:18px">
-          <img src="logo-nova.jpg" alt="Araguaia Poços Artesianos" style="height:104px;width:auto;display:block;background:#fff;padding:10px 14px;border-radius:12px">
+        <div class="foot-brand" style="margin-bottom:24px">
+          <img src="logo-nova.jpg" alt="Araguaia Poços Artesianos" style="height:312px;max-width:100%;width:auto;display:block;background:#fff;padding:18px 24px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.3)">
         </div>
         <p style="color:#9ca3af;font-size:14px;line-height:1.65;max-width:340px">Perfuração profissional de poços artesianos até 450m na rocha. ART de engenheira, laudo técnico e garantia em contrato.</p>
         <div class="foot-fe">🙏 "Deus é Fiel"</div>
