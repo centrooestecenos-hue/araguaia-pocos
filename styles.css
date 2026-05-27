@@ -293,7 +293,12 @@ footer{background:var(--bg-darker);color:#9ca3af;padding:70px 0 24px;font-size:1
   .gal.large{grid-column:span 2;grid-row:auto}
   .sobre,.cta-final-grid{grid-template-columns:1fr;gap:40px}
   .sobre-img{aspect-ratio:16/9;max-height:400px}
-  .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .foot-grid{grid-template-columns:1fr!important;gap:32px!important;text-align:center}
+  .foot-col{display:flex;flex-direction:column;align-items:center}
+  .foot-brand{justify-content:center;margin-bottom:12px!important}
+  .foot-brand img{height:180px!important;padding:12px 18px!important;max-width:90%!important}
+  .foot-col p,.foot-col h4{max-width:100%!important;text-align:center}
+  .foot-tels{align-items:center}
   .nav-links{display:none}
   .topbar-info{font-size:11px;gap:12px}
   .topbar-info span:nth-child(3){display:none}
