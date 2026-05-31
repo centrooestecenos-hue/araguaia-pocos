@@ -5,9 +5,10 @@
 
 const WHATSAPP_LINK = 'https://wa.me/message/VCMNJ7SGMDHQE1';
 const WEBHOOK_URL = 'https://formspree.io/f/xvzyvdzy'; // backup (email)
-// Pipeline novo: salva lead no Supabase + alerta Telegram (Workflow 1 do n8n).
-// Cole aqui a URL do webhook quando o workflow estiver no ar. Vazio = ignora.
-const N8N_WEBHOOK_URL = '';
+// Pipeline principal: Supabase Edge Function — salva o lead no banco + alerta no Telegram.
+const LEAD_ENDPOINT = 'https://yzgzbudcnhrgkxuxaqis.supabase.co/functions/v1/receber-lead';
+// Chave anon (publishable) do Supabase — pública por design, pode ficar no client.
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6Z3pidWRjbmhyZ2t4dXhhcWlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODMyNTMsImV4cCI6MjA5NDI1OTI1M30.GbWPaE8bg0Q2S6uxTns2pFNiy2S1CozfRQoVAHSgEEA';
 
 // === UTM tracking ===
 const utm = {
@@ -143,11 +144,15 @@ function enviarLead(e) {
     value: 1, currency: 'BRL', method: form.finalidade.value
   });
 
-  // Novo pipeline (Supabase + Telegram via n8n) — fire-and-forget, não bloqueia.
-  if (N8N_WEBHOOK_URL) {
-    fetch(N8N_WEBHOOK_URL, {
+  // Pipeline principal (Supabase Edge Function: salva no banco + Telegram) — fire-and-forget.
+  if (LEAD_ENDPOINT) {
+    fetch(LEAD_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+      },
       body: JSON.stringify(dados)
     }).catch(() => {});
   }
