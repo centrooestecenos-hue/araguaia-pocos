@@ -4,7 +4,10 @@
    ============================================================ */
 
 const WHATSAPP_LINK = 'https://wa.me/message/VCMNJ7SGMDHQE1';
-const WEBHOOK_URL = 'https://formspree.io/f/xvzyvdzy';
+const WEBHOOK_URL = 'https://formspree.io/f/xvzyvdzy'; // backup (email)
+// Pipeline novo: salva lead no Supabase + alerta Telegram (Workflow 1 do n8n).
+// Cole aqui a URL do webhook quando o workflow estiver no ar. Vazio = ignora.
+const N8N_WEBHOOK_URL = '';
 
 // === UTM tracking ===
 const utm = {
@@ -140,6 +143,16 @@ function enviarLead(e) {
     value: 1, currency: 'BRL', method: form.finalidade.value
   });
 
+  // Novo pipeline (Supabase + Telegram via n8n) — fire-and-forget, não bloqueia.
+  if (N8N_WEBHOOK_URL) {
+    fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    }).catch(() => {});
+  }
+
+  // Formspree (backup por email) — controla o redirect pro WhatsApp.
   fetch(WEBHOOK_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
