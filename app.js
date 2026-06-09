@@ -3,7 +3,7 @@
    - UTM tracking | Scroll progress | Reveal | Counter | Form
    ============================================================ */
 
-const WHATSAPP_LINK = 'https://wa.me/message/VCMNJ7SGMDHQE1';
+const WHATSAPP_LINK = 'https://wa.me/5564996122284';
 const WEBHOOK_URL = 'https://formspree.io/f/xvzyvdzy'; // backup (email)
 // Pipeline principal: Supabase Edge Function — salva o lead no banco + alerta no Telegram.
 const LEAD_ENDPOINT = 'https://yzgzbudcnhrgkxuxaqis.supabase.co/functions/v1/receber-lead';
@@ -242,5 +242,5 @@ function redir(d) {
     '📱 WhatsApp: ' + d.telefone + '\n' +
     '🎯 Origem: ' + d.origem
   );
-  location.href = 'https://wa.me/5564999606284?text=' + msg;
+  location.href = 'https://wa.me/5564996122284?text=' + msg;
 }
